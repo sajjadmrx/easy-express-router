@@ -1,4 +1,4 @@
-import {Controller, EasyRouter, Get, Patch, Put} from '../../lib'
+import {Controller, EasyRouter, Get, Patch, Put} from '../../index'
 import request from 'supertest'
 
 import express, {NextFunction, Request, Response} from "express";
