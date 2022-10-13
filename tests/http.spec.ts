@@ -1,16 +1,26 @@
-import {Controller, EasyRouter, Get, Put} from '../lib'
+import {Controller, EasyRouter, Get, Patch, Put} from '../lib'
 import request from 'supertest'
 
-import express, {Request, Response} from "express";
+import express, {NextFunction, Request, Response} from "express";
+import bodyParser from "body-parser";
+import {Middleware} from "../lib/shared/custom-types/middleware.type";
 
 const app = express();
 
+app.use(bodyParser.json())
 
 let usersDB = [{
     id: 1,
     username: 'sajjadmrx',
     avatar: 'https://random.com/xx.png'
 }]
+
+const checkBodyMiddleware: Middleware = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.body)
+        res.status(400).send('INVALID_BODY')
+    else
+        next()
+}
 
 @Controller('/users')
 class Users {
@@ -22,7 +32,6 @@ class Users {
 
     @Get('/:userId')
     findByUserId(req: Request, res: Response) {
-        //User.findOne({userId:req.params.userId})
         const user = usersDB.find((a: any) => a.id == req.params.userId)
         res.status(200).json(user)
     }
@@ -31,6 +40,16 @@ class Users {
     updateRole(req: Request, res: Response) {
         const user = usersDB.find((a: any) => a.id == req.params.userId)
         user.username = 'test';
+        res.status(200).json(user)
+    }
+
+    @Patch(':userId', {
+        middlewares: [checkBodyMiddleware]
+    })
+    update(req: Request, res: Response) {
+        const user = usersDB.find((a: any) => a.id == req.params.userId)
+        user.avatar = 'AVATAR';
+        user.username = 'test'
         res.status(200).json(user)
     }
 }
@@ -68,6 +87,22 @@ describe('Http', function () {
             request(app)
                 .put('/users/1/username')
                 .expect(200, user, done)
+        })
+    });
+
+
+    describe('middleware', function () {
+        it('should responds 400 when body is empty', (done) => {
+            request(app)
+                .patch('/users/1')
+                .expect(400, done)
+        })
+        it("should responds 200 and call next in to middleware", (done) => {
+            request(app)
+                .patch('/users/1')
+                .send({username: 'mrx'})
+                .set('Accept', 'application/json')
+                .expect(200, done)
         })
     });
 
