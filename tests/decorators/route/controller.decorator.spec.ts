@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {Controller} from "../../../lib/decorators/route/controller.decorator";
-import {RouteMetaKeys} from "../../../lib/constants/route-metaKeys.constant";
+import {RouteMetaKeys} from "../../../lib/shared/constants/route-metaKeys.constant";
 
 describe('Controller()', function () {
     it('should defined', () => {

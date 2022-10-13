@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 
-import {RouteOptions} from "../../interfaces/route-options.interface";
-import {RouteMetaKeys} from "../../constants/route-metaKeys.constant";
+import {PrefixRouteOptions} from "../../shared/interfaces/route.interface";
+import {RouteMetaKeys} from "../../shared/constants/route-metaKeys.constant";
 
-export function Controller(prefix: string, options?: RouteOptions) {
-    return (target: any) => {
+export function Controller(prefix: string, options?: PrefixRouteOptions) {
+    return (target: Function) => {
         if (!prefix)
             prefix = '/';
 
