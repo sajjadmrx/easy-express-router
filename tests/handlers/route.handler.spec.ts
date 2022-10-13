@@ -14,8 +14,8 @@ describe('RouteHandler()', function () {
         function Users() {
         }
 
-        RouteHandler(ApiMethods.GET, {path: '/', middlewares: []})(Users, 'find', {} as any)
-        
+        RouteHandler(ApiMethods.GET, 'users', {middlewares: []})(Users, 'find', {} as any)
+
         expect(Reflect.getMetadata(MetaKeys.routes, Users))
             .toHaveLength(1)
 

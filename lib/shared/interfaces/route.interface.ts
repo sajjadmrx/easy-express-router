@@ -2,7 +2,6 @@ import {Middleware} from "../custom-types/middleware.type";
 import {ApiMethods} from "../constants/api-method.constant";
 
 export interface RouteOptions {
-    path: string | undefined
     middlewares: Middleware[],
 }
 

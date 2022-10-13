@@ -3,15 +3,9 @@ import {RouteHandler} from "../../handlers/route.handler";
 import {ApiMethods} from "../../shared/constants/api-method.constant";
 
 export function Get(path: string, options?: RouteOptions) {
-    return (target: Function, propertyKey: string, descriptor: PropertyDescriptor) => {
-        options.path = path
-        return RouteHandler(ApiMethods.GET, options)
-    }
+    return RouteHandler(ApiMethods.GET, path, options)
 }
 
 export function Post(path: string, options?: RouteOptions) {
-    return (target: Function, propertyKey: string, descriptor: PropertyDescriptor) => {
-        options.path = path
-        return RouteHandler(ApiMethods.POST, options)
-    }
+    return RouteHandler(ApiMethods.POST, path, options)
 }
