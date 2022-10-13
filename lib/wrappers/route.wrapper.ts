@@ -22,7 +22,22 @@ export function RouteWrapper(target: object, propertyKey: string, descriptor: Pr
 
     //wrapper
     descriptor.value = async function (...args: any[]) {
-        originallyMethod.apply(this, args)
+
+        const [req, res] = args;
+        const returnType = Reflect.getMetadata('design:returntype', target, propertyKey)
+
+        if (returnType && returnType.name == 'Promise') {
+            const out = await originallyMethod.apply(this, args)
+            res.send(out)
+
+        } else if (returnType && returnType.name != 'Promise') {
+            const out = originallyMethod.apply(this, args)
+            res.send(out)
+        } else {
+            const value = await originallyMethod.apply(this, args)//void
+            if (value)
+                res.send(value)
+        }
     }
 
 

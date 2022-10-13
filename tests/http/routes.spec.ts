@@ -1,9 +1,9 @@
-import {Controller, EasyRouter, Get, Patch, Put} from '../lib'
+import {Controller, EasyRouter, Get, Patch, Put} from '../../lib'
 import request from 'supertest'
 
 import express, {NextFunction, Request, Response} from "express";
 import bodyParser from "body-parser";
-import {Middleware} from "../lib/shared/custom-types/middleware.type";
+import {Middleware} from "../../lib/shared/custom-types/middleware.type";
 
 const app = express();
 
@@ -16,7 +16,7 @@ let usersDB = [{
 }]
 
 const checkBodyMiddleware: Middleware = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body)
+    if (!Object.values(req.body).length)
         res.status(400).send('INVALID_BODY')
     else
         next()
@@ -105,5 +105,6 @@ describe('Http', function () {
                 .expect(200, done)
         })
     });
+
 
 });
