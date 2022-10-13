@@ -9,7 +9,7 @@ describe('EasyRouter', function () {
     })
 
     it('should throw error when controllers is empty', () => {
-        expect(EasyRouter.init)
+        expect(EasyRouter.initControllers)
             .toThrowError('please first use set Controllers [EasyRouter.setControllers]')
     })
 

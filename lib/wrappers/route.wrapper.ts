@@ -13,7 +13,7 @@ export function RouteWrapper(target: object, propertyKey: string, descriptor: Pr
     const apis: MetaRoute[] = Reflect.getMetadata(MetaKeys.routes, target) || [];
 
 
-    items.path = items.path || '/';
+    items.path = items.path || '';
 
 
     const originallyMethod = descriptor.value;

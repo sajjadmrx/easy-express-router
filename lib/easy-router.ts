@@ -1,10 +1,10 @@
-import express from 'express'
+import express, {Router} from 'express'
 import {RouteMetaKeys} from "./shared/constants/route-metaKeys.constant";
 import {MetaRoute, PrefixRouteOptions} from "./shared/interfaces/route.interface";
 import {MetaKeys} from "./shared/constants/metaKeys.constant";
 import {Middleware} from "./shared/custom-types/middleware.type";
 
-const easyExpress = express();
+const easyExpress = express.Router()
 
 
 let _controllers: Array<object> = []
@@ -16,7 +16,7 @@ export class EasyRouter {
     }
 
 
-    static init() {
+    static initControllers(): Router {
         if (!_controllers.length)
             throw new Error('please first use set Controllers [EasyRouter.setControllers]')
 
@@ -27,7 +27,7 @@ export class EasyRouter {
 
             const routes: MetaRoute[] = Reflect.getMetadata(MetaKeys.routes, controller);
 
-            const prefixMiddlewares: Middleware[] = prefixOptions.middlewares || []
+            const prefixMiddlewares: Middleware[] = prefixOptions?.middlewares || []
 
             routes.forEach((route: MetaRoute) => {
                 if (route.middlewares.length || prefixMiddlewares.length) {
@@ -41,5 +41,6 @@ export class EasyRouter {
             })
 
         })
+        return easyExpress
     }
 }
