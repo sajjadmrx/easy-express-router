@@ -30,14 +30,18 @@ export class EasyRouter {
             const prefixMiddlewares: Middleware[] = prefixOptions?.middlewares || []
 
             routes.forEach((route: MetaRoute) => {
+                let path: string = route.path;
+                if (path && path.startsWith('/')) {
+                    path = path.substring(1)
+                }
                 if (route.middlewares.length || prefixMiddlewares.length) {
 
                     const middlewares: Middleware[] = [...new Set([...route.middlewares, ...prefixMiddlewares])];
 
-                    (easyExpress as any)[route.routeType](`${prefix}/${route.path}`, middlewares, route.method)
+                    (easyExpress as any)[route.routeType](`${prefix}/${path}`, middlewares, route.method)
 
                 } else
-                    (easyExpress as any)[route.routeType](`${prefix}/${route.path}`, route.method)
+                    (easyExpress as any)[route.routeType](`${prefix}/${path}`, route.method)
             })
 
         })
