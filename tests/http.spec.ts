@@ -1,4 +1,4 @@
-import {Controller, EasyRouter, Get} from '../lib'
+import {Controller, EasyRouter, Get, Put} from '../lib'
 import request from 'supertest'
 
 import express, {Request, Response} from "express";
@@ -26,6 +26,13 @@ class Users {
         const user = usersDB.find((a: any) => a.id == req.params.userId)
         res.status(200).json(user)
     }
+
+    @Put(':userId/username')
+    updateRole(req: Request, res: Response) {
+        const user = usersDB.find((a: any) => a.id == req.params.userId)
+        user.username = 'test';
+        res.status(200).json(user)
+    }
 }
 
 
@@ -51,6 +58,16 @@ describe('Http', function () {
                 .get('/users/1')
                 .expect(200, usersDB[0], done)
 
+        })
+    });
+
+    describe('Put', function () {
+        it("should update username and responds 200", (done) => {
+            const user = usersDB[0];
+            user.username = 'test'
+            request(app)
+                .put('/users/1/username')
+                .expect(200, user, done)
         })
     });
 
