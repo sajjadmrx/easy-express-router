@@ -8,6 +8,11 @@
     "build": "tsc",
     "test": "jest"
   },
+  "files": [
+    "/dist",
+    "/types",
+    "tsconfig.json"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
