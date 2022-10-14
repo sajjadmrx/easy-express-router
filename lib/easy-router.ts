@@ -36,7 +36,7 @@ export class EasyRouter {
                 }
                 if (route.middlewares.length || prefixMiddlewares.length) {
 
-                    const middlewares: Middleware[] = [...new Set([...route.middlewares, ...prefixMiddlewares])];
+                    const middlewares: Middleware[] = [...new Set([...prefixMiddlewares, ...route.middlewares])];
 
                     (easyExpress as any)[route.routeType](`${prefix}/${path}`, middlewares, route.method)
 
