@@ -1,4 +1,4 @@
-export * from './response/header.decorator';
+export * from './response/headers.decorator';
 
 
 export * from './route/methods.decorator'
