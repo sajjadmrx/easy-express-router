@@ -1,5 +1,5 @@
 export enum MetaKeys {
     routes = 'ma:routes',
-    returnType = 'design:returntype'
-
+    returnType = 'design:returntype',
+    headers = 'ma:headers'
 }

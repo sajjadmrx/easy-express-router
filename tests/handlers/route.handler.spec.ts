@@ -3,6 +3,7 @@ import {RouteHandler} from "../../lib/handlers/route.handler";
 import {ApiMethods} from "../../lib/shared/constants/api-method.constant";
 
 import {MetaKeys} from "../../lib/shared/constants/metaKeys.constant";
+import {Get} from "../../lib/decorators/route/methods.decorator";
 
 
 describe('RouteHandler()', function () {
@@ -11,12 +12,14 @@ describe('RouteHandler()', function () {
         expect(RouteHandler).toBeDefined()
     })
     it('should push api', () => {
-        function Users() {
+
+        class Users {
+            @Get('users')
+            find() {
+            }
         }
 
-        RouteHandler(ApiMethods.GET, 'users', {middlewares: []})(Users, 'find', {} as any)
-
-        expect(Reflect.getMetadata(MetaKeys.routes, Users))
+        expect(Reflect.getMetadata(MetaKeys.routes, Users.prototype))
             .toHaveLength(1)
 
         Reflect.deleteMetadata(MetaKeys.routes, Users)

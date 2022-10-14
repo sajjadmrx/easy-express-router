@@ -3,6 +3,7 @@ import {MetaRoute, RouteOptions} from "../shared/interfaces/route.interface";
 import {ApiMethods} from "../shared/constants/api-method.constant";
 import {MetaKeys} from "../shared/constants/metaKeys.constant";
 import {Middleware} from "../shared/custom-types/middleware.type";
+import {Header} from "../shared/interfaces/decorators/headers.interface";
 
 export function RouteWrapper(target: object, propertyKey: string, descriptor: PropertyDescriptor, items: {
     options: RouteOptions,
@@ -20,10 +21,17 @@ export function RouteWrapper(target: object, propertyKey: string, descriptor: Pr
 
     const middlewares: Middleware[] = items.options?.middlewares || []
 
+    const headers: Header[] = Reflect.getMetadata(MetaKeys.headers, target[propertyKey]) || []
+
     //wrapper
     descriptor.value = async function (...args: any[]) {
-
         const [req, res] = args;
+
+        headers.length && headers.forEach((header: Header) => {
+            res.setHeader(header.key, header.value)
+        })
+
+
         const returnType = Reflect.getMetadata('design:returntype', target, propertyKey)
 
         if (returnType && returnType.name == 'Promise') {
