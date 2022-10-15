@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import {PrefixRouteOptions} from "../../shared/interfaces/route.interface";
 import {RouteMetaKeys} from "../../shared/constants/route-metaKeys.constant";
 
-export function Controller(prefix: string, options?: PrefixRouteOptions) {
+export function Controller(prefix: string, options?: PrefixRouteOptions): ClassDecorator {
     return (target: Function) => {
         if (!prefix)
             prefix = '/';

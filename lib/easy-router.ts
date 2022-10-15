@@ -7,7 +7,7 @@ import {Middleware} from "./shared/custom-types/middleware.type";
 const easyExpress = express.Router()
 
 
-let _controllers: Array<object> = []
+export let _controllers: Array<object> = []
 
 export class EasyRouter {
 
@@ -25,7 +25,7 @@ export class EasyRouter {
             const prefix: string = Reflect.getMetadata(RouteMetaKeys.PREFIX, controller);
             const prefixOptions: PrefixRouteOptions = Reflect.getMetadata(RouteMetaKeys.PREFIX_OPTIONS, controller)
 
-            const routes: MetaRoute[] = Reflect.getMetadata(MetaKeys.routes, controller);
+            const routes: MetaRoute[] = Reflect.getMetadata(MetaKeys.routes, controller) || []
 
             const prefixMiddlewares: Middleware[] = prefixOptions?.middlewares || []
 

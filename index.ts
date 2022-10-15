@@ -1,2 +1,2 @@
 export * from './lib/decorators'
-export * from './lib/easy-router'
+export {EasyRouter} from './lib/easy-router'

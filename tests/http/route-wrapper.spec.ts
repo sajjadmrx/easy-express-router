@@ -1,8 +1,8 @@
-import {Controller, EasyRouter, Get, Patch, Put} from '../../index'
 import request from 'supertest'
-
-import express, {NextFunction, Request, Response} from "express";
+import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
+
+import {Controller, EasyRouter, Get, Put} from '../../index'
 import {RouteWrapper} from "../../lib/wrappers/route.wrapper";
 
 const wait = (ms: number) => new Promise((res, rej) => setTimeout(() => res(true), ms))
@@ -10,7 +10,7 @@ const wait = (ms: number) => new Promise((res, rej) => setTimeout(() => res(true
 const app = express();
 app.use(bodyParser.json())
 
-const postsDB: any[] = []
+const postsDB: any[] = [{id: 1, title: 'hello_world'}]
 
 @Controller('posts')
 class Posts {
@@ -18,7 +18,13 @@ class Posts {
     constructor(private db: any[]) {
     }
 
-    @Get('')
+
+    @Get('/db')
+    async fetchDB() {
+        return this.db
+    }
+
+    @Get('/')
     findAll() {
         return {
             postId: 1
@@ -42,8 +48,11 @@ class Posts {
 
 }
 
+
 EasyRouter.setControllers([new Posts(postsDB)])
 app.use(EasyRouter.initControllers())
+
+
 describe('RouteWrapper', function () {
     it('should defined', () => {
         expect(RouteWrapper)
@@ -74,5 +83,10 @@ describe('RouteWrapper', function () {
             postId: 2,
             title: 'iphone 14'
         })
+    })
+    it('should use dependency Injection data', async () => {
+        const response = await request(app)
+            .get("/posts/db");
+        expect(response.body).toEqual(postsDB)
     })
 });
