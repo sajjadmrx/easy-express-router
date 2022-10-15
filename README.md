@@ -21,8 +21,7 @@ npm i easy-express-router
 }
 ```
 
-<h1 style="text-align: center">Getting started</h1>
-<hr/>
+# Getting started
 
 1. Pretty straight forward, first having routing/Controller class:
 
@@ -72,17 +71,13 @@ app.use(EasyRouter.initControllers())
 
 #### - and Done! 🧹✅
 
+-----
+
 ##### examples:
 
-- soon
-- soon 2
+- [todo App](./examples/todo-app)
 
-<h1 style="text-align: center">
-
-[Route Decorators](./lib/decorators/route/methods.decorator.ts)
-
-</h1>
-<hr/>
+# [Route Decorators](./lib/decorators/route/methods.decorator.ts)
 
 - Get()
 - Post()
@@ -92,12 +87,7 @@ app.use(EasyRouter.initControllers())
 - Head()
 - Options()
 
-<h1 style="text-align: center">
-
-[Response Decorators](./lib/decorators/response)
-
-</h1>
-<hr/>
+# [Response Decorators](./lib/decorators/response)
 
 ## Headers()
 
