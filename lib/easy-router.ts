@@ -1,8 +1,13 @@
+import 'reflect-metadata'
 import express, {Router} from 'express'
+import bodyParser from "body-parser";
+
+
 import {RouteMetaKeys} from "./shared/constants/route-metaKeys.constant";
 import {MetaRoute, PrefixRouteOptions} from "./shared/interfaces/route.interface";
 import {MetaKeys} from "./shared/constants/metaKeys.constant";
 import {Middleware} from "./shared/custom-types/middleware.type";
+import {InitControllerOptions} from "./shared/interfaces/easyRouter.interface";
 
 const easyExpress = express.Router()
 
@@ -16,9 +21,14 @@ export class EasyRouter {
     }
 
 
-    static initControllers(): Router {
+    static initControllers(options?: InitControllerOptions): Router {
         if (!_controllers.length)
             throw new Error('please first use set Controllers [EasyRouter.setControllers]')
+
+        if (options) {
+            if (options.bodyParser)
+                easyExpress.use(bodyParser.json());
+        }
 
         _controllers.forEach((controller: any) => {
 
