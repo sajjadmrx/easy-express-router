@@ -6,25 +6,26 @@ import {Middleware} from "../shared/custom-types/middleware.type";
 import {Header} from "../shared/interfaces/decorators/headers.interface";
 import {_controllers} from "../easy-router";
 
-export function RouteWrapper(target: object, propertyKey: string, descriptor: PropertyDescriptor, items: {
-    options: RouteOptions,
-    methodType: ApiMethods,
+interface Items {
+    options: RouteOptions
+    methodType: ApiMethods
     path: string
-}) {
+}
+
+export function RouteWrapper(target: object, propertyKey: string, descriptor: PropertyDescriptor, items: Items): void {
 
     const apis: MetaRoute[] = Reflect.getMetadata(MetaKeys.routes, target) || [];
 
 
     items.path = items.path || '';
 
-    const x = target
     const originallyMethod = descriptor.value
 
     const middlewares: Middleware[] = items.options?.middlewares || []
 
     const headers: Header[] = Reflect.getMetadata(MetaKeys.headers, target[propertyKey]) || []
 
-    // //wrapper
+    //wrapper
     descriptor.value = async function (...args: any[]) {
         const [req, res] = args;
 
@@ -38,7 +39,6 @@ export function RouteWrapper(target: object, propertyKey: string, descriptor: Pr
         if (returnType && returnType.name == 'Promise') {
             const out = await originallyMethod.apply(properties, args)
             res.send(out)
-
         } else if (returnType && returnType.name != 'Promise') {
             const out = originallyMethod.apply(properties, args)
             res.send(out)

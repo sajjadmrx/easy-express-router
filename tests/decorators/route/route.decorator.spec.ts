@@ -1,10 +1,11 @@
 import 'reflect-metadata'
-import {Controller} from "../../../lib/decorators/route/controller.decorator";
-import {Get, Post} from "../../../lib/decorators/route/methods.decorator";
+import {NextFunction, Request, Response} from "express";
+
+
+import {Get, Post, Controller} from "../../../lib/decorators";
 import {MetaKeys} from "../../../lib/shared/constants/metaKeys.constant";
 import {MetaRoute} from "../../../lib/shared/interfaces/route.interface";
 import {ApiMethods} from "../../../lib/shared/constants/api-method.constant";
-import {NextFunction, Request, Response} from "express";
 
 describe('Routes', function () {
 

@@ -23,7 +23,7 @@ export class EasyRouter {
 
     static initControllers(options?: InitControllerOptions): Router {
         if (!_controllers.length)
-            throw new Error('please first use set Controllers [EasyRouter.setControllers]')
+            throw new Error('controllers list has empty')
 
         if (options) {
             if (options.bodyParser)

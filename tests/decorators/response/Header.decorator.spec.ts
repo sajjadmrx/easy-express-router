@@ -1,5 +1,7 @@
 import 'reflect-metadata'
-import {Headers} from "../../../lib/decorators/response/headers.decorator";
+
+
+import {Headers} from "../../../lib/decorators";
 import {MetaKeys} from "../../../lib/shared/constants/metaKeys.constant";
 import {Header} from "../../../lib/shared/interfaces/decorators/headers.interface";
 

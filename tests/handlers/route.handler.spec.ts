@@ -1,9 +1,8 @@
 import 'reflect-metadata'
 import {RouteHandler} from "../../lib/handlers/route.handler";
-import {ApiMethods} from "../../lib/shared/constants/api-method.constant";
 
 import {MetaKeys} from "../../lib/shared/constants/metaKeys.constant";
-import {Get} from "../../lib/decorators/route/methods.decorator";
+import {Get} from "../../lib/decorators";
 
 
 describe('RouteHandler()', function () {

@@ -1,7 +1,7 @@
 import {Controller, EasyRouter, Get, Headers} from '../../index'
 import request from 'supertest'
 
-import express, {NextFunction, Request, Response} from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import {Header} from "../../lib/shared/interfaces/decorators/headers.interface";
 
