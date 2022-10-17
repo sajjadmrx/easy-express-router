@@ -14,7 +14,7 @@ const easyExpress = express.Router()
 
 export let _controllers: Array<object> = []
 
-export class EasyRouter {
+export abstract class EasyRouter {
 
     static setControllers(controllers: object[]) {
         _controllers = controllers
@@ -48,10 +48,10 @@ export class EasyRouter {
 
                     const middlewares: Middleware[] = [...new Set([...prefixMiddlewares, ...route.middlewares])];
 
-                    (easyExpress as any)[route.routeType](`${prefix}/${path}`, middlewares, route.method)
+                    (easyExpress as any)[route.method](`${prefix}/${path}`, middlewares, route.handler)
 
                 } else
-                    (easyExpress as any)[route.routeType](`${prefix}/${path}`, route.method)
+                    (easyExpress as any)[route.method](`${prefix}/${path}`, route.handler)
             })
 
         })

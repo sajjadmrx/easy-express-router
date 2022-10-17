@@ -51,9 +51,9 @@ export function RouteWrapper(target: object, propertyKey: string, descriptor: Pr
 
 
     apis.push({
-        routeType: items.methodType,
+        method: items.methodType,
         path: items.path,
-        method: descriptor.value,
+        handler: descriptor.value,
         middlewares: middlewares
     })
     Reflect.defineMetadata(MetaKeys.routes, apis, target)

@@ -10,7 +10,7 @@ export interface PrefixRouteOptions extends Pick<RouteOptions, 'middlewares'> {
 }
 
 export interface MetaRoute extends Pick<RouteOptions, 'middlewares'> {
-    routeType: ApiMethods,
+    method: ApiMethods,
     path: string,
-    method: any
+    handler: any
 }

@@ -21,9 +21,9 @@ describe('Routes', function () {
 
             const myData: MetaRoute = {
                 path: '/me',
-                routeType: ApiMethods.GET,
+                method: ApiMethods.GET,
                 middlewares: [],
-                method: User.prototype.profile
+                handler: User.prototype.profile
             }
 
             const metaData = Reflect.getMetadata(MetaKeys.routes, User.prototype)
@@ -49,9 +49,9 @@ describe('Routes', function () {
 
             const myData: MetaRoute = {
                 path: '/:userId',
-                routeType: ApiMethods.GET,
+                method: ApiMethods.GET,
                 middlewares: [checkRole],
-                method: Users.prototype.findUser
+                handler: Users.prototype.findUser
             }
 
             const metaData = Reflect.getMetadata(MetaKeys.routes, Users.prototype)
@@ -75,9 +75,9 @@ describe('Routes', function () {
 
             const myData: MetaRoute = {
                 path: '/:userId',
-                routeType: ApiMethods.POST,
+                method: ApiMethods.POST,
                 middlewares: [],
-                method: Users.prototype.update
+                handler: Users.prototype.update
             }
 
             const metaData = Reflect.getMetadata(MetaKeys.routes, Users.prototype)
