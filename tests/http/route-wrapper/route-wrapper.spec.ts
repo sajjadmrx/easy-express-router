@@ -1,55 +1,20 @@
 import request from 'supertest'
-import express, {Request, Response} from "express";
+import express from "express";
 import bodyParser from "body-parser";
 
-import {Controller, EasyRouter, Get, Put} from '../../index'
-import {RouteWrapper} from "../../lib/wrappers/route.wrapper";
+import {EasyRouter} from '../../../index'
+import {RouteWrapper} from "../../../lib/wrappers/route.wrapper";
+import {PostsController} from "./posts.controller";
+import {postsDB} from "./db";
 
-const wait = (ms: number) => new Promise((res, rej) => setTimeout(() => res(true), ms))
 
 const app = express();
 app.use(bodyParser.json())
 
-const postsDB: any[] = [{id: 1, title: 'hello_world'}]
 
-@Controller('posts')
-class Posts {
+const postsController = new PostsController(postsDB)
 
-    constructor(private db: any[]) {
-    }
-
-
-    @Get('/db')
-    async fetchDB() {
-        return this.db
-    }
-
-    @Get('/')
-    findAll() {
-        return {
-            postId: 1
-        }
-    }
-
-    @Get('/:id')
-    async findOne(req: Request, res: Response): Promise<void> {
-        res.json({postId: Number(req.params.id)})
-    }
-
-    @Put('/:id/title')
-    async updateTitle(req: Request, res: Response): Promise<any> {
-        const title = req.body.title;
-        await wait(1000)
-        return {
-            postId: Number(req.params.id),
-            title: title
-        }
-    }
-
-}
-
-
-EasyRouter.setControllers([new Posts(postsDB)])
+EasyRouter.setControllers([postsController])
 app.use(EasyRouter.initControllers())
 
 
@@ -59,7 +24,7 @@ describe('RouteWrapper', function () {
             .toBeDefined()
     })
 
-    it("should responds postId with 'return'", async () => {
+    it("should response postId with 'return'", async () => {
         const response = await request(app)
             .get('/posts')
             .set('Accept', 'application/json');

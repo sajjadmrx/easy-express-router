@@ -32,6 +32,15 @@
     "express": "^4.18.2",
     "reflect-metadata": "^0.1.13"
   },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajjadmrx/easy-express-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sajjadmrx/easy-express-router/issues"
+  },
+  "homepage": "https://github.com/sajjadmrx/easy-express-router#readme",
+
   "keywords": [
     "typescript-libary",
     "express-routing",
