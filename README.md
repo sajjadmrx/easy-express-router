@@ -23,6 +23,13 @@ npm i easy-express-router
 
 # Getting started
 
+- [Usage](#usage)
+- [Route Decorators](#route-decorators)
+- [Response Decorators](#response-decorators)
+- [Enums](#enums)
+
+# Usage
+
 1. Pretty straight forward, first having routing/Controller class:
 
 ```ts
@@ -66,7 +73,7 @@ EasyRouter.setControllers([todosController])
 ```ts
 import {EasyRouter} from 'easy-express-router'
 
-app.use(EasyRouter.initControllers())
+app.use(EasyRouter.initControllers({bodyParser: true})) // options is optional
 ```
 
 #### - and Done! 🧹✅
@@ -77,7 +84,7 @@ app.use(EasyRouter.initControllers())
 
 - [todo App](./examples/todo-app)
 
-# [Route Decorators](./lib/decorators/route/methods.decorator.ts)
+# Route Decorators
 
 - Get()
 - Post()
@@ -87,9 +94,9 @@ app.use(EasyRouter.initControllers())
 - Head()
 - Options()
 
-# [Response Decorators](./lib/decorators/response)
+# Response Decorators
 
-## Headers()
+### Headers()
 
 - To specify a custom response header, you can either use @Headers() decorator or a library-specific response object (
   and call res.header() directly).
@@ -111,3 +118,7 @@ class Todos {
 }
 
 ```
+
+# Enums
+
+- HttpStatus
