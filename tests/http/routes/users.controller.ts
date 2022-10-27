@@ -2,6 +2,7 @@ import {Controller, Get, Patch, Put} from "../../../lib/decorators";
 import {NextFunction, Request, Response} from "express";
 import {Middleware} from "../../../lib/shared/custom-types/middleware.type";
 import {usersDB} from "./db";
+import {HttpStatus} from "../../../lib/enums";
 
 
 const checkBodyMiddleware: Middleware = (req: Request, res: Response, next: NextFunction) => {
@@ -22,7 +23,7 @@ export class UsersController {
     @Get('/:userId')
     findByUserId(req: Request, res: Response) {
         const user = usersDB.find((a: any) => a.id == req.params.userId)
-        res.status(200).json(user)
+        res.status(HttpStatus.OK).json(user)
     }
 
     @Put(':userId/username')
