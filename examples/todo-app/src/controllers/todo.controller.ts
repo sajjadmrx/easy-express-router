@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, Post} from "easy-express-router";
+import {Controller, Delete, Get, HttpStatus, Post} from "easy-express-router";
 import {TodoRepository} from "../repositories/todo.repository";
 import {Request, Response} from "express";
 import {Todo} from "../interfaces/todo.interface";
@@ -47,10 +47,10 @@ export class TodoController {
         const todoId: number = Number(req.params.id);
         const deletedCount: number = await this.dbRepository.deleteById(todoId);
         if (deletedCount >= 1) {
-            res.status(200)
+            res.status(HttpStatus.OK)
                 .send('Success');
         } else {
-            res.status(404)
+            res.status(HttpStatus.NOT_FOUND)
                 .send('todo not found!')
         }
     }
