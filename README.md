@@ -1,6 +1,6 @@
 # Easy Express Router for Typescript
 
-Allows us to write express routers in typescript way (class-based, typesafe and asyncronous). It's a pluggable library
+Allows us to write express routers in typescript way (class-based, typesafe and asynchronous). It's a pluggable library
 so it's totally compatible with legacy codes, not enforcing application to use its styles.
 
 ## Installation
@@ -27,62 +27,58 @@ npm i easy-express-router
 - [Route Decorators](#route-decorators)
 - [Response Decorators](#response-decorators)
 - [Enums](#enums)
+- [Contributing](#contributing)
 
 # Usage
 
 1. Pretty straight forward, first having routing/Controller class:
 
 ```ts
-import {Controller} from 'easy-express-router'
+import { Controller } from 'easy-express-router';
 
 @Controller('todos')
 class Todos {
-    constructor() {
-    }
+  constructor() {}
 
-    @Get('/')
-    async find(req: Request, res: Response): Promise<Todo[]> {
-        return []
-    }
+  @Get('/')
+  async find(req: Request, res: Response): Promise<Todo[]> {
+    return [];
+  }
 
-    @Get('/:id')
-    async findOne(req: Request, res: Response): Promise<void> {
-        res.json({
-            todoId: Number(req.params.id),
-            titie: 'lerning js'
-        })
-    }
+  @Get('/:id')
+  async findOne(req: Request, res: Response): Promise<void> {
+    res.json({
+      todoId: Number(req.params.id),
+      titie: 'lerning js'
+    });
+  }
 }
-
 ```
 
-2. set Controllers
+2. Set Controllers
 
 ```ts
-import {EasyRouter} from 'easy-express-router'
+import { EasyRouter } from 'easy-express-router';
 
 // controllers
 const todosController: Todos = new Todos();
 
-
-EasyRouter.setControllers([todosController])
+EasyRouter.setControllers([todosController]);
 ```
 
-3. init to app.use
+3. Init to app.use
 
 ```ts
-import {EasyRouter} from 'easy-express-router'
+import { EasyRouter } from 'easy-express-router';
 
-app.use(EasyRouter.initControllers({bodyParser: true})) // options is optional
+app.use(EasyRouter.initControllers({ bodyParser: true })); // options is optional
 ```
 
 #### - and Done! 🧹✅
 
------
+##### Examples:
 
-##### examples:
-
-- [todo App](./examples/todo-app)
+- [Todo App](./examples/todo-app)
 
 # Route Decorators
 
@@ -102,23 +98,26 @@ app.use(EasyRouter.initControllers({bodyParser: true})) // options is optional
   and call res.header() directly).
 
 ```ts
-import {Controller, EasyRouter} from 'easy-express-router'
+import { Controller, EasyRouter } from 'easy-express-router';
 
 @Controller('todos')
 class Todos {
-    constructor() {
-    }
+  constructor() {}
 
-    @Get('/')
-    @Headers({key: 'Cache-Control', value: 'none'})//or [{key,value}]
-    async find(req: Request, res: Response): Promise<Todo[]> {
-        return []
-    }
-
+  @Get('/')
+  @Headers({ key: 'Cache-Control', value: 'none' }) //or [{key,value}]
+  async find(req: Request, res: Response): Promise<Todo[]> {
+    return [];
+  }
 }
-
 ```
 
 # Enums
 
 - HttpStatus
+
+# Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
