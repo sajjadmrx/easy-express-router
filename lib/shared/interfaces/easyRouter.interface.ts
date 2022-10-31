@@ -1,3 +1,3 @@
 export interface InitControllerOptions {
-    bodyParser: boolean;
+  bodyParser: boolean;
 }
