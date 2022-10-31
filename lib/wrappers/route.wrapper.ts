@@ -31,7 +31,7 @@ export function RouteWrapper(
 
   //wrapper
   descriptor.value = async function (...args: any[]) {
-    const [req, res] = args;
+    const [res] = args;
 
     headers.length &&
       headers.forEach((header: Header) => {

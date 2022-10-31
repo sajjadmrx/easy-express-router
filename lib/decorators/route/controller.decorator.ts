@@ -7,7 +7,7 @@ export function Controller(
   prefix: string,
   options?: PrefixRouteOptions
 ): ClassDecorator {
-  return (target: Function) => {
+  return (target: any) => {
     if (!prefix) prefix = '/';
 
     if (!prefix.startsWith('/')) prefix = `/${prefix}`;
